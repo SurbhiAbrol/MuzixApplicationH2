@@ -11,22 +11,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService
-{
+public class UserServiceImpl implements UserService {
     UserRepository userRepository;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository){
-        this.userRepository=userRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public User saveUser(User user) throws UserAlreadyExistException
-    {
-        if (userRepository.existsById(user.getTrackId())){
+    public User saveUser(User user) throws UserAlreadyExistException {
+        if (userRepository.existsById(user.getTrackId())) {
             throw new UserAlreadyExistException("user already exists");
         }
-        User savedUser=userRepository.save(user);
-        if (savedUser==null){
+        User savedUser = userRepository.save(user);
+        if (savedUser == null) {
             throw new UserAlreadyExistException("User already exists");
         }
         return savedUser;
@@ -34,16 +33,17 @@ public class UserServiceImpl implements UserService
 
     @Override
     public List<User> getAllUsers() {
+
         return userRepository.findAll();
     }
 
     @Override
     public User updateUser(User user) throws UpdateException {
-        if (userRepository.existsById(user.getTrackId())){
+        if (userRepository.existsById(user.getTrackId())) {
             throw new UpdateException("user already exists");
         }
-        User savedUser=userRepository.save(user);
-        if (savedUser==null){
+        User savedUser = userRepository.save(user);
+        if (savedUser == null) {
             throw new UpdateException("User already exists");
         }
         return savedUser;
@@ -58,23 +58,20 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public boolean deleteUser(int id) throws TrackNotFoundException{
-        boolean status=false;
-        if (userRepository.existsById(id)){
+    public boolean deleteUser(int id) throws TrackNotFoundException {
+        boolean status = false;
+        if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
-             status=true;
+            status = true;
 
-        }else {
+        } else {
             throw new TrackNotFoundException("tracknotfound");
-        }return status;
+        }
+        return status;
     }
+}
 
    /* @Override
     public List<User> getDeleteUser(){
         return userRepository.findAll();
     }*/
-
-
-
-
-}

@@ -17,7 +17,5 @@ public class Seed1 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        userRepository.save(new User(1,"surbhi","aaaa"));
-        userRepository.save(new User(2,"abc","xyz"));
     }
 }
